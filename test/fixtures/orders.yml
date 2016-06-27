@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  delivery: false
+  customer_name: MyString
+  phone_number: MyString
+  address: 
+  status: 1
+  customer_id: 1
+
+two:
+  delivery: false
+  customer_name: MyString
+  phone_number: MyString
+  address: 
+  status: 1
+  customer_id: 1
