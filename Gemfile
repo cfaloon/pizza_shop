@@ -28,6 +28,8 @@ gem 'pg'
 
 # Use Devise for user authentication.
 gem 'devise'
+# minitest for tests
+gem 'minitest'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
