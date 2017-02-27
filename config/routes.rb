@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :order_items
+  resources :orders
   resources :menu_items
   devise_for :users
   resources :users
