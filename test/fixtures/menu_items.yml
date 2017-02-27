@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  description: MyText
-  price: 1.5
+  name: Chicken Supreme Stromboli
+  description: Chicken, bacon, tomatoes, mozzarella, cheddar and ranch.
+  price: 7.0
 
 two:
-  name: MyString
-  description: MyText
-  price: 1.5
+  name: Sausage Stromboli
+  description: Italian sausage, green peppers, pepperoni, mozzarella, and mushroom.
+  price: 6.0
