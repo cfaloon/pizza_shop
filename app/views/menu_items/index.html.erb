@@ -25,7 +25,7 @@
           <td><%= menu_item.name %></td>
           <td><%= menu_item.description %></td>
           <td><%= menu_item.price %></td>
-	  <td><button onclick='addItemToOrder(<%= menu_item.id %>, <%= menu_item.price %>);'>+</button>
+	  <td><button onclick='addItemToOrder(<%= menu_item.id %>, "<%= escape_javascript(menu_item.name) %>", <%= menu_item.price %>);'>+</button>
 	</tr>
 	<% end %>
       </tbody>
