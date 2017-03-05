@@ -30,6 +30,8 @@ gem 'devise'
 gem 'minitest'
 # high_voltage for simple "static" pages.
 gem 'high_voltage', '~> 3.0.0'
+# foundation!
+gem 'foundation-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
