@@ -1,3 +1,9 @@
+<script type='text/javascript'>
+  window.onload = function() {
+    setUserId(<%= current_user.try(:id) %>);
+  };
+</script>
+  
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Menu Items</h1>
@@ -18,9 +24,7 @@
         <td><%= menu_item.name %></td>
         <td><%= menu_item.description %></td>
         <td><%= menu_item.price %></td>
-        <td><%= link_to 'Show', menu_item %></td>
-        <td><%= link_to 'Edit', edit_menu_item_path(menu_item) %></td>
-        <td><%= link_to 'Destroy', menu_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	<td><button onclick='addItemToOrder(<%= menu_item.id %>, <%= menu_item.price %>);'>+</button>
       </tr>
     <% end %>
   </tbody>
