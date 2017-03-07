@@ -34,9 +34,9 @@ ActiveRecord::Schema.define(version: 20170227213242) do
   create_table "orders", force: :cascade do |t|
     t.boolean  "delivery"
     t.integer  "status"
-    t.integer  "customer_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
