@@ -43,3 +43,29 @@
 a:link, a:visited {
     text-decoration: underline;
 }
+
+.btn {
+    background: #57ade6;
+    background-image: -webkit-linear-gradient(top, #57ade6, #1171ad);
+    background-image: -moz-linear-gradient(top, #57ade6, #1171ad);
+    background-image: -ms-linear-gradient(top, #57ade6, #1171ad);
+    background-image: -o-linear-gradient(top, #57ade6, #1171ad);
+    background-image: linear-gradient(to bottom, #57ade6, #1171ad);
+    -webkit-border-radius: 7;
+    -moz-border-radius: 7;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 13px;
+    padding: 3px;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background: #437ea3;
+    background-image: -webkit-linear-gradient(top, #437ea3, #598aab);
+    background-image: -moz-linear-gradient(top, #437ea3, #598aab);
+    background-image: -ms-linear-gradient(top, #437ea3, #598aab);
+    background-image: -o-linear-gradient(top, #437ea3, #598aab);
+    background-image: linear-gradient(to bottom, #437ea3, #598aab);
+    text-decoration: none;
+}

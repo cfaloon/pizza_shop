@@ -1,0 +1,15 @@
+.subtotal {
+  font-size: 22px;
+  float: right;
+}
+
+#cart {
+    border: solid;
+    border-width: 2px;
+    margin: 4px;
+}
+
+#cart th {
+    text-align: left;
+    margin-left: 3px;
+}

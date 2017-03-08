@@ -1,9 +1,3 @@
-<script type='text/javascript'>
-  window.onload = function() {
-    setUserId(<%= current_user.try(:id) %>);
-  };
-</script>
-  
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Menu Items</h1>
@@ -25,7 +19,7 @@
           <td><%= menu_item.name %></td>
           <td><%= menu_item.description %></td>
           <td><%= menu_item.price %></td>
-	  <td><button onclick='addItemToOrder(<%= menu_item.id %>, "<%= escape_javascript(menu_item.name) %>", <%= menu_item.price %>);'>+</button>
+	  <td><button class="btn" onclick='addItemToOrder(<%= menu_item.id %>, "<%= escape_javascript(menu_item.name) %>", <%= menu_item.price %>);'>+</button></td>
 	</tr>
 	<% end %>
       </tbody>
@@ -37,4 +31,26 @@
     </div>
   </div>
 </div>
-<br>
+<script type='text/javascript'>
+  window.onload = function() {
+    setUserId(<%= current_user.try(:id) %>);
+  };
+
+  var element = $('#cart');
+  var originalY = element.offset().top;
+  
+  $(window).on('scroll', function(event) {
+
+    var scrollTop = $(window).scrollTop();
+    var topMargin = 20;
+
+    element.css('position', 'relative');
+  
+    element.stop(false, false).animate({
+      top: scrollTop < originalY
+		       ? 0
+		       : scrollTop - originalY + topMargin }, 300);
+  });
+</script>
+
+<br />

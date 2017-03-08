@@ -12,15 +12,17 @@ function addItemToOrder(menuItemId, name, price) {
 function buildCartHtml() {
   var cart = $('#cart');
   if(order.order_items_attributes.length > 0) {
-    var html = $('<ul></ul>');
+    var html = $('<table></table>');
+    html.append('<th>Item</th><th>Price</th><th>Remove</th>');
     order.order_items_attributes.forEach( function(orderItem, index, arr) {
-      html.append('<li>' + orderItem.name + ' - $' + orderItem.price + ' <a onclick="removeItem(' + index + ')">X</a>' + '</li>');
+      html.append('<tr><td>' + orderItem.name + '</td><td>$' + orderItem.price + '</td><td><button class="btn" onclick="removeItem(' + index + ')">X</button></td>' + '</tr>');
     });
     var subtotal = order.order_items_attributes.reduce(function(acc, order_item) {
       return acc + order_item.price;
     }, 0);
-    html.append('<span>Subtotal: ' + subtotal  + '</span><br />');
-    html.append('<button onclick="submitOrder();">Place Order</button>');
+    html.append('<span class="subtotal">Subtotal: ' + subtotal  + '</span><br />');
+    html.append('<button class="btn" onclick="submitOrder();">Place Order</button>');
+    console.log(String(html));
   } else {
     html = $('<span>Add items to your order!</span>');
   }
