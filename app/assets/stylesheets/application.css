@@ -17,6 +17,10 @@
  *= require foundation
  */
 
+.banner {
+    font-size: 48px;
+    margin: 15px;
+}
 
 #navigation {
     list-style-type: none;
@@ -32,8 +36,10 @@
 #navigation li a {
     display: inline;
     text-align: center;
-    text-decoration: none;
     display: inline;
     font-size: 20px;
 }
 
+a:link, a:visited {
+    text-decoration: underline;
+}

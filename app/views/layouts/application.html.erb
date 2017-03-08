@@ -8,10 +8,10 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <%= render 'layouts/navigation' %>
-  <p class="alert"><%= alert %></p>
   <div class='row'>
     <div class='large-12 columns'>
+      <%= render 'layouts/navigation' %>
+      <p class="alert"><%= alert %></p>
       <%= yield %>
     </div>
   </div>
