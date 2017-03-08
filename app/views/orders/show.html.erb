@@ -12,7 +12,24 @@
 
 <p>
   <strong>User:</strong>
-  <%= @order.user %>
+  <%= @order.user.try(:to_s) %>
+</p>
+
+<p>
+  <strong>Order Items</strong>
+  <table>
+    <tr>
+      <th>Menu Item</th>
+      <th>Price</th>
+    </tr>
+    <% @order.order_items.each do |item|%>
+    <tr>
+      <td><%= item.menu_item.name %></td>
+      <td><%= sprintf('%.2f', item.menu_item.price.to_s) %></td>
+    </tr>
+    <% end %>
+  </table>
+  <span>Subtotal: $<%= sprintf('%.2f', @order.subtotal) %></span>
 </p>
 
 <%= link_to 'Edit', edit_order_path(@order) %> |
