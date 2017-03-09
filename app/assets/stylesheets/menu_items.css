@@ -6,10 +6,19 @@
 #cart {
     border: solid;
     border-width: 2px;
+    display: inline-block;
     margin: 4px;
+    height: 90%;
+    overflow-y: scroll;
+    position: relative;
 }
 
 #cart th {
     text-align: left;
     margin-left: 3px;
+}
+
+#cart.sticky {
+    position: fixed;
+    top: 20px;
 }

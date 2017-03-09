@@ -8,6 +8,7 @@
       <th>Delivery</th>
       <th>Status</th>
       <th>Customer</th>
+      <th>Order Items</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -17,10 +18,15 @@
       <tr>
         <td><%= order.delivery %></td>
         <td><%= order.status %></td>
-        <td><%= order.user %></td>
+        <td> <%= order.user ? order.user.first_name + ' ' + order.user.last_name : 'Guest' %></td>
+	<td>
+	  <ul>
+	    <% order.order_items.each do |item| %>
+	      <li><%= item.menu_item.name %></li>
+	    <% end %>
+	  </ul>
+	</td>
         <td><%= link_to 'Show', order %></td>
-        <td><%= link_to 'Edit', edit_order_path(order) %></td>
-        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

@@ -26,8 +26,17 @@
     </table>
   </div>
   <div class='large-4 columns'>
-    <div id='cart'>
-      Your Order Here!
+    <div id='cart-wrapper'>
+      <div id='cart'>
+	<table id='cart-table'>
+	  <thead>
+	    <tr><th>Item</th><th>Price</th><th></th></tr>
+	  </thead>
+	  <tbody></tbody>
+	</table>
+	<span class="subtotal">Subtotal: <span id='cart-subtotal'>$0</span></span>
+	<button class="btn" onclick="submitOrder();">Place Order</button>
+      </div>
     </div>
   </div>
 </div>
@@ -44,13 +53,17 @@
     var scrollTop = $(window).scrollTop();
     var topMargin = 20;
 
-    element.css('position', 'relative');
-  
-    element.stop(false, false).animate({
-      top: scrollTop < originalY
-		       ? 0
-		       : scrollTop - originalY + topMargin }, 300);
+    if(scrollTop > originalY) {
+      element.addClass('sticky');
+    } else {
+      element.removeClass('sticky');
+    }
   });
+
+  $(window).on('resize', function(event) {
+    setCartHeight();		       
+  });
+		       
 </script>
 
 <br />

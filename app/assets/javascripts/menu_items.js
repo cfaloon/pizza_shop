@@ -5,33 +5,38 @@ function setUserId(userId) {
 };
 
 function addItemToOrder(menuItemId, name, price) {
-  order.order_items_attributes.push({ menu_item_id: menuItemId, name: name, price: price });
-  buildCartHtml();
+  var orderItem =  { menu_item_id: menuItemId, name: name, price: price };
+  order.order_items_attributes.push(orderItem);
+  addRowToCart(orderItem);
 };
 
-function buildCartHtml() {
-  var cart = $('#cart');
-  if(order.order_items_attributes.length > 0) {
-    var html = $('<table></table>');
-    html.append('<th>Item</th><th>Price</th><th>Remove</th>');
-    order.order_items_attributes.forEach( function(orderItem, index, arr) {
-      html.append('<tr><td>' + orderItem.name + '</td><td>$' + orderItem.price + '</td><td><button class="btn" onclick="removeItem(' + index + ')">X</button></td>' + '</tr>');
-    });
-    var subtotal = order.order_items_attributes.reduce(function(acc, order_item) {
-      return acc + order_item.price;
-    }, 0);
-    html.append('<span class="subtotal">Subtotal: ' + subtotal  + '</span><br />');
-    html.append('<button class="btn" onclick="submitOrder();">Place Order</button>');
-    console.log(String(html));
-  } else {
-    html = $('<span>Add items to your order!</span>');
-  }
-  cart.html(html);    
+function addRowToCart(orderItem) {
+  var index = $('#cart-table tbody tr').length;
+  $('#cart-table tbody').append('<tr data-id="' + orderItem.menu_item_id + '"><td>' + orderItem.name + '</td><td>$' + orderItem.price + '</td><td><button class="btn" onclick="removeItem(this)">X</button></td>' + '</tr>');
+  updateSubtotal();
 };
 
-function removeItem(index) {
+function removeRowFromCart(row) {
+  $(row).closest('tr').remove();
+  updateSubtotal();
+};
+
+function updateSubtotal() {
+  var subtotal = order.order_items_attributes.reduce(function(acc, order_item) {
+    return acc + order_item.price;
+  }, 0);
+  subtotal = Math.round(subtotal * 100) / 100;
+  $('#cart-subtotal').html('$' + subtotal);
+};
+
+function removeItem(row) {
+  var orderItemId = $(row).data('id');
+  var orderItem = order.order_items_attributes.filter( function(obj) {
+    obj.menu_item_id == orderItemId ? true : false;
+  })[0];
+  var index = order.order_items_attributes.indexOf(orderItem);
   order.order_items_attributes.splice(index, 1);
-  buildCartHtml();
+  removeRowFromCart(row);
 };
 
 function submitOrder() {
@@ -46,5 +51,7 @@ function submitOrder() {
 	   }});
 };
 
-
+function setCartHeight() {
+  element.css('height', $(window).innerHeight() - (element.offset().top - $(window).scrollTop()) - 20);
+};
 

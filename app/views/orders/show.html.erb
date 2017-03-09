@@ -12,7 +12,7 @@
 
 <p>
   <strong>User:</strong>
-  <%= @order.user.try(:to_s) %>
+  <%= @order.user ? @order.user.first_name + ' ' + @order.user.last_name : 'Guest' %>
 </p>
 
 <p>
