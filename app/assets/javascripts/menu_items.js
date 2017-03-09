@@ -40,6 +40,8 @@ function removeItem(row) {
 };
 
 function submitOrder() {
+  var delivery = $("#delivery").prop('checked');
+  order.delivery = delivery;
   $.ajax({ url: '/orders.json',
 	   type: 'POST',
 	   beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
