@@ -1,4 +1,4 @@
-var order = { delivery: false, status: 0, order_items_attributes: [] };
+var order = { delivery: false, status: 'draft', order_items_attributes: [] };
 
 function setUserId(userId) {
   order.user_id = userId;
@@ -40,8 +40,7 @@ function removeItem(row) {
 };
 
 function submitOrder() {
-  var delivery = $("#delivery").prop('checked');
-  order.delivery = delivery;
+  order.delivery = $("#delivery").prop('checked');
   $.ajax({ url: '/orders.json',
 	   type: 'POST',
 	   beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
@@ -51,6 +50,7 @@ function submitOrder() {
 	       window.location.href = response.url.replace(/\.json/, '');
 	     }
 	   }});
+
 };
 
 function setCartHeight() {

@@ -4,9 +4,9 @@
 }
 
 #cart {
+    border: solid;
     display: inline-block;
     margin: 4px;
-    height: 90%;
     overflow-y: scroll;
     position: relative;
 }

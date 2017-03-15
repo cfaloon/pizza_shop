@@ -1,4 +1,5 @@
 class Order < ActiveRecord::Base
+  enum status: [:draft, :placed, :complete]
   # relations
   belongs_to :user
   has_many :order_items
@@ -14,7 +15,8 @@ class Order < ActiveRecord::Base
 
   private
   def address_format
-    return true unless delivery
-    %s(line_1 line_2 city state zip).all? { |key| address.key? key && address[key] }
+    return true unless delivery? # return immediately if this is a delivery, no address required.
+    return false unless address # reject validation if the address is completely nil and this is a delivery
+    %i(line_1 line_2 city state zip).all? { |key| address.key?(key) && address[key].present? }
   end
 end
