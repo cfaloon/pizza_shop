@@ -12,7 +12,7 @@ function addItemToOrder(menuItemId, name, price) {
 
 function addRowToCart(orderItem) {
   var index = $('#cart-table tbody tr').length;
-  $('#cart-table tbody').append('<tr data-id="' + orderItem.menu_item_id + '"><td>' + orderItem.name + '</td><td>$' + orderItem.price + '</td><td><button class="btn" onclick="removeItem(this)">X</button></td>' + '</tr>');
+  $('#cart-table tbody').append('<tr data-id="' + orderItem.menu_item_id + '"><td>' + orderItem.name + '</td><td>$' + orderItem.price + '</td><td><button class="btn" onclick="removeItem(this)">&times;</button></td>' + '</tr>');
   updateSubtotal();
 };
 
@@ -22,13 +22,16 @@ function removeRowFromCart(row) {
 };
 
 function updateSubtotal() {
-  var subtotal = order.order_items_attributes.reduce(function(acc, order_item) {
-    return acc + order_item.price;
-  }, 0);
-  subtotal = Math.round(subtotal * 100) / 100;
+  var subtotal = computeSubtotal();
   $('#cart-subtotal').html('$' + subtotal);
 };
 
+function computeSubtotal() {
+  var subtotal = order.order_items_attributes.reduce(function(acc, order_item) {
+    return acc + order_item.price;
+  }, 0);
+  return Math.round(subtotal * 100) / 100;
+};
 function removeItem(row) {
   var orderItemId = $(row).data('id');
   var orderItem = order.order_items_attributes.filter( function(obj) {
@@ -39,8 +42,24 @@ function removeItem(row) {
   removeRowFromCart(row);
 };
 
-function submitOrder() {
+function finalizeOrder() {
+  // build the final order
+  $('#final-order tbody').empty();
+  order.order_items_attributes.forEach( function(orderItem) {
+    $('#final-order tbody').append('<tr data-id="' + orderItem.menu_item_id + '"><td>' + orderItem.name + '</td><td>$' + orderItem.price + '</td></tr>');
+  });
+  $('#final-subtotal').html('$' + computeSubtotal());
   order.delivery = $("#delivery").prop('checked');
+  openModal();
+};
+
+function submitOrder() {
+  var address = {};
+  var addressInputs = $('#address-form :input');
+  addressInputs.each(function () {
+    address[this.name] = this.value;
+  });
+  order.address = address;
   $.ajax({ url: '/orders.json',
 	   type: 'POST',
 	   beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
@@ -50,10 +69,18 @@ function submitOrder() {
 	       window.location.href = response.url.replace(/\.json/, '');
 	     }
 	   }});
-
 };
 
 function setCartHeight() {
+  console.log('scroll');
   element.css('height', $(window).innerHeight() - (element.offset().top - $(window).scrollTop()) - 20);
 };
 
+function openModal() {
+  order.delivery ? $('#full-address').show() : $('#full-address').hide();
+  $('#delivery-modal').show();
+};
+
+function closeModal() {
+  $('#delivery-modal').hide();
+};

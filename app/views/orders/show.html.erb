@@ -14,7 +14,19 @@
   <strong>User:</strong>
   <%= @order.user ? @order.user.first_name + ' ' + @order.user.last_name : 'Guest' %>
 </p>
-
+<% if @order.address.present? %>
+  <p>
+    <strong>Name and Address:</strong><br />
+    <%= @order.address['name'] %><br />
+    <% if @order.delivery? %>
+      <% %w(line_1 line_2 city state zip).each do |key| %>
+        <% if @order.address[key].present? %>
+          <%= @order.address[key] %><br />
+        <% end %>
+      <% end %>
+    <% end %>
+  </p>
+<% end %>
 <p>
   <strong>Order Items</strong>
   <table>

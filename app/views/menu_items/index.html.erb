@@ -40,11 +40,43 @@
 	</form>
 	<span class="subtotal">Subtotal: <span id='cart-subtotal'>$0</span></span>
 	<br /><br />
-	<button class="btn" onclick="submitOrder();">Place Order</button>
+	<button class="btn" onclick="finalizeOrder();">Finalize Order</button>
       </div>
+    </div>    
+  </div>  
+</div>
+
+<div id="delivery-modal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content large-12 columns">
+    <span id="modal-close">&times;</span>
+    <p>Almost there!</p>
+    <div id="address" class="large-8 columns">
+      <form id="address-form">
+	Name: <input name="name" type="text"></input>
+	<div id="full-address">
+	  Line 1:<input name="line_1" type="text"></input>
+	  Line 2:<input name="line_2" type="text"></input>
+	  City: <input name="city" type="text"></input>
+	  State: <input name="state" type="text"></input>
+	  Zip: <input name="zip" type="text"></input>
+	</div>
+      </form>
     </div>
+    <div class="large-4 columns">
+      <h3>Your Order</h3>
+      <table id="final-order">
+	<thead>
+	  <tr><th>Menu Item</th><th>Price</th></tr>
+	</thead>
+	<tbody></tbody>
+      </table>
+      <span id="final-subtotal"><strong>Subtotal:</strong></span>
+    </div>
+    <button class="btn" onclick="submitOrder();">Place Order</button>
   </div>
 </div>
+
 <script type='text/javascript'>
   window.onload = function() {
     setUserId(<%= current_user.try(:id) %>);
@@ -63,9 +95,17 @@
     } else {
       element.removeClass('sticky');
     }
+    setCartHeight();
   });
 
- 		       
+  $(window).on('resize', function(event) {
+    setCartHeight();
+  });
+
+  $("#modal-close").click(function() {
+    closeModal();
+  });
+
 </script>
 
 <br />
