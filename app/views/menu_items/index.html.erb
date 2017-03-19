@@ -53,13 +53,31 @@
     <p>Almost there!</p>
     <div id="address" class="large-8 columns">
       <form id="address-form">
-	Name: <input name="name" type="text"></input>
+	<div class="input-wrapper">
+	  <input id="address-name" name="name" type="text" required>
+	  <label for="address-name">Name</label>
+	</div>
 	<div id="full-address">
-	  Line 1:<input name="line_1" type="text"></input>
-	  Line 2:<input name="line_2" type="text"></input>
-	  City: <input name="city" type="text"></input>
-	  State: <input name="state" type="text"></input>
-	  Zip: <input name="zip" type="text"></input>
+	  <div class="input-wrapper">
+	    <input id="address-line-1" name="line_1" type="text" required>
+	    	    <label for="address-line-1">Line 1</label>
+	  </div>
+	  <div class="input-wrapper">
+	    <input id="address-line-2" name="line_2" type="text" required>
+	    <label for="address-line-2">Line 2</label>
+	  </div>
+	  <div class="input-wrapper">
+	    <input id="address-city" name="city" type="text" required>
+	    <label for="address-city">City</label>
+	  </div>
+	  <div class="input-wrapper">
+	    <input id="address-state" name="state" type="text" required>
+	    <label for="address-state">State</label>
+	  </div>
+	  <div class="input-wrapper">
+	    <input id="address-zip" name="zip" type="text" required>
+	    <label for="address-zip">Zipcode</label>
+	  </div>
 	</div>
       </form>
     </div>
@@ -71,15 +89,25 @@
 	</thead>
 	<tbody></tbody>
       </table>
-      <span id="final-subtotal"><strong>Subtotal:</strong></span>
+      <br />
+      <strong>Subtotal: </strong><span id="final-subtotal"></span>
     </div>
-    <button class="btn" onclick="submitOrder();">Place Order</button>
+    <div id="final-submit" class="large-4 columns">
+      <button class="btn" onclick="submitOrder();">Place Order</button>
+      <% if current_user %>
+        <input type="checkbox" id="save-address" /> Save address for later?
+      <% end %>
+    </div>
   </div>
 </div>
 
 <script type='text/javascript'>
+  var userAddresses;
   window.onload = function() {
     setUserId(<%= current_user.try(:id) %>);
+  <% if current_user %>
+    userAddresses = JSON.parse('<%= current_user.addresses ? current_user.addresses.to_json.html_safe : [] %>');
+    <% end %>
   };
 
   var element = $('#cart');

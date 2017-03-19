@@ -54,12 +54,7 @@ function finalizeOrder() {
 };
 
 function submitOrder() {
-  var address = {};
-  var addressInputs = $('#address-form :input');
-  addressInputs.each(function () {
-    address[this.name] = this.value;
-  });
-  order.address = address;
+  buildAddress();
   $.ajax({ url: '/orders.json',
 	   type: 'POST',
 	   beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
@@ -69,6 +64,29 @@ function submitOrder() {
 	       window.location.href = response.url.replace(/\.json/, '');
 	     }
 	   }});
+};
+
+function buildAddress() {
+  var address = {};
+  var addressInputs = $('#address-form :input');
+  addressInputs.each(function () {
+    address[this.name] = this.value;
+  });
+  order.address = address;
+  if ($("#save-address").prop('checked')) {
+    saveAddressToUser();
+  }
+};
+
+function saveAddressToUser() {
+  userAddresses.push(order.address);
+  console.log(userAddresses);
+  var patchData = { user: { addresses: JSON.stringify(userAddresses) }}
+  $.ajax({ url: '/users/' + order.user_id + '.json',
+	   type: 'PATCH',
+	   beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+	   data: patchData
+	 });
 };
 
 function setCartHeight() {

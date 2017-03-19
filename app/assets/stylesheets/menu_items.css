@@ -62,9 +62,56 @@
 #address {
     width: 55%;
     margin: 10px;
+    float: left;
+    text-align: left;
 }
+
+.input-wrapper {
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.input-wrapper label {
+    transition: background 0.2s, color 0.2s, top 0.2s, bottom 0.2s, right 0.2s, left 0.2s;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    color: #999;
+    padding: 7px 6px;
+}
+
+#address-form input {
+    width: 100%;
+    border: 2px solid gray;
+    background: none;
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    padding: 8px 12px;
+    outline: 0;
+}
+
+#address-form input:focus + label {
+    /* do something with the label */
+    display: none;
+}
+
+#address-form input:valid {
+    background: white;
+}
+
 
 #final-order {
     width: 35%;
     display: inline;
+}
+
+#final-submit {
+    display: block;
+    float: left;
+    text-align: left;
 }
