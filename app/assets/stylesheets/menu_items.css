@@ -104,6 +104,10 @@
     background: white;
 }
 
+#address-span {
+    width: 350;
+    margin-right: 0;
+}
 
 #final-order {
     width: 35%;
@@ -115,3 +119,8 @@
     float: left;
     text-align: left;
 }
+
+#save-address {
+    display: inline;
+}
+

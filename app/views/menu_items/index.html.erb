@@ -78,6 +78,10 @@
 	    <input id="address-zip" name="zip" type="text" required>
 	    <label for="address-zip">Zipcode</label>
 	  </div>
+	  <% if current_user %>
+          <span id="address-span">Save address for later?</span><input type="checkbox" id="save-address" />
+	  </div>
+	  <% end %>
 	</div>
       </form>
     </div>
@@ -94,9 +98,6 @@
     </div>
     <div id="final-submit" class="large-4 columns">
       <button class="btn" onclick="submitOrder();">Place Order</button>
-      <% if current_user %>
-        <input type="checkbox" id="save-address" /> Save address for later?
-      <% end %>
     </div>
   </div>
 </div>
